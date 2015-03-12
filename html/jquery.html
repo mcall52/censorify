@@ -2,14 +2,48 @@
 <head>
 <title>City Finder</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+$(document).ready(function(){
+    $("#submit").click(function(e){
+	e.preventDefault();
+        var myobj = {Name:$("#Name").val(),Comment:$("#Comment").val()};
+	var url = "http://52.10.149.241/comment";
 
-</head>
+        jobj = JSON.stringify(myobj);
+        $("#json").text(jobj);
+	$.post(url,jobj,function(data,textStatus){
+	  console.log("Jquery.html called POST");
+	  $("#done").append(textStatus);
+	  $("#success").text("success");
+	});
+    });
+
+    $("#show").click(function(e){
+        e.preventDefault();
+        var myobj = {Name:$("#Name").val(),Comment:$("#Comment").val()};
+	var url = "http://52.10.149.241/comment";
+	$.getJSON(url,function(data){
+  	  var list;
+  	  list = "<ul>";
+  	  $.each(data, function(i,item) {
+	    console.log("data["+i+"] is "+data[i].Name);
+    	    list += "<li> Name: "+data[i].Name+" Comment: "+data[i].Comment;
+  	  });
+  	list += "</ul>";
+  	$("#currentComments").html(list);
+	}).fail(function(h,textStatus,error){
+	  console.log("Get request failed! "+textStatus);
+	});
+    });
+});
+</script> </head>
 <body>
 <form>
 Enter A Utah City: <input type="text" id="cityfield" value=""><br>
 Suggestion: <span id="txtHint">Empty</span>
 <input id="button" type="submit" value="Submit">
 </form>
+
 <p>City</p>
 <textarea id="dispcity">No City</textarea>
 <p>Current Weather</p>
@@ -66,5 +100,19 @@ $("#button").click(function(e){
 });
 
 </script>
+
+<form id="commentForm" action="">
+  Name: <input type="text" id="Name" value="Mickey"><br>
+  comment: <input type="text" id="Comment" value="Hello"><br>
+  <input id="submit" type="submit" value="Submit Comment">
+  <input id="show" type="submit" value="Show All Comments"><br><br>
+  Current Comments:<br><br>
+  
+</form>
+
+<div id="json"></div>
+<div id="success"></div>
+<div id="currentComments"></div>
+
 </body>
 </html>
