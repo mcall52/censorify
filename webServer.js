@@ -1,7 +1,10 @@
+var express = require('express');
 var fs = require('fs');
+var https = require('https');
 var http = require('http');
 var url = require('url');
 var readline = require('url');
+var app = express();
 var ROOT_DIR = "html/";
 http.createServer(function (req, res) {
   var urlObj = url.parse(req.url, true, false);

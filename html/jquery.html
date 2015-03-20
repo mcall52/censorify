@@ -11,11 +11,23 @@ $(document).ready(function(){
 
         jobj = JSON.stringify(myobj);
         $("#json").text(jobj);
-	$.post(url,jobj,function(data,textStatus){
-	  console.log("Jquery.html called POST");
-	  $("#done").append(textStatus);
-	  $("#success").text("success");
+	jQuery.ajax ({
+	  url: url,
+	  type: "POST",
+ 	  data: jobj,
+	  dataType: "json",
+	  contentType: "application/json; charset=utf-8",
+	  success: function(){
+	    $("#done").append("Success");
+	    console.log(req.body.Name);
+	    console.log(req.body.Comment);
+	  }
 	});
+//	$.post(url,jobj,function(data,textStatus){
+//	  console.log("Jquery.html called POST");
+//	  $("#done").append(textStatus);
+//	  $("#success").text("success");
+//	});
     });
 
     $("#show").click(function(e){
