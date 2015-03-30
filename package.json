@@ -1,0 +1,12 @@
+{
+  "name": "censorify.mcall52",
+  "version": "0.1.0",
+  "description": "a simple node.js module",
+  "repository": {
+    "type": "git",
+    "location": "https://github.com/mcall52/censorify.git"
+  },
+  "dependencies": {
+    "express": "^4.12.2"
+  }
+}
